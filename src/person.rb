@@ -1,6 +1,8 @@
+require_relative 'nameable'
+
 # General class using the encapsulation and abstraction principle \r
 
-class Person
+class Person < Nameable
   attr_accessor :name, :age
   attr_reader :id
 
@@ -13,6 +15,10 @@ class Person
 
   def can_use_services?
     of_age? || @parent_permission
+  end
+
+  def correct_name
+    @name
   end
 
   private
