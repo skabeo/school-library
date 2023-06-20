@@ -1,9 +1,11 @@
 require_relative 'base_decorator'
 
 class TrimmerDecorator < BaseDecorator
-  MAX_LENGTH = 10
-
   def correct_name
-    super[0, MAX_LENGTH]
+    if @nameable.correct_name.length > 10
+      @nameable.correct_name.slice(0, 10)
+    else
+      @Nameable.correct_name
+    end
   end
 end
