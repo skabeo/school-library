@@ -63,7 +63,7 @@ class App
     when 'n'
       student = Student.new(age, name, parent_permission: false)
       @persons << student
-      puts 'Need parent permission to Borrow a book ⚠️'
+      puts 'Need parent permission to Borrow a book'
     when 'y'
       student = Student.new(age, name, parent_permission: true)
       @persons << student
@@ -84,7 +84,7 @@ class App
     puts 'Teacher created successfully'
   end
 
-  def create_book()
+  def create_book
     puts 'Create a new book'
     print 'Enter title: '
     title = gets.chomp
