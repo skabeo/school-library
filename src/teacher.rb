@@ -1,8 +1,10 @@
-require './person'
+require_relative 'person'
 # Teacher class demonstrating the inheritance principle
 class Teacher < Person
-  def initialize(age, specialization, name: 'Unknown', parent_permission: true)
-    super(age, name, parent_permission)
+  attr_accessor :specialization
+
+  def initialize(specialization, age, name)
+    super(age, name)
     @specialization = specialization
   end
 
