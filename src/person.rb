@@ -3,10 +3,10 @@ require_relative 'nameable'
 # General class using the encapsulation and abstraction principle \r
 
 class Person < Nameable
-  attr_accessor :name, :age, rentals
+  attr_accessor :name, :age, :rentals
   attr_reader :id
 
-  def initialize(age, name: 'Unknown', parent_permission: true)
+  def initialize(age, name = 'Unknown', parent_permission: true)
     super()
     @id = Random.rand(1...1000)
     @name = name
