@@ -102,7 +102,7 @@ Run bundle install to install all dependencies
 
 ```
 
-Ones you have the files on your machine, you can run the app by running the following command in your terminal:
+Ones you have the files on your machine, you can run the app by running the following command in your terminal: 
 
 ```
 ruby src/main.rb
