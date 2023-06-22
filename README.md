@@ -58,8 +58,10 @@
 
 ### Key Features <a id="key-features"></a>
 
-- **Has the person class which would save data as inputed by users**
-- **A student and teacher class that has addintional parameter based on who the user is**
+- Add new students or teachers.
+- Add new books.
+- Save records of who borrowed a given book and when.
+- And all of this will be built in a beautiful and well-organized way!
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -92,12 +94,18 @@ Clone this repository to your desired folder by running the following command:
 
 To use this application, you need to have Node.js installed on your machine. Once you have Node.js installed,
 
-Run npm install to install all dependencies
+Run bundle install to install all dependencies
 
 ```sh
   cd school-library
   bundle install
 
+```
+
+Ones you have the files on your machine, you can run the app by running the following command in your terminal:
+
+```
+ruby src/main.rb
 ```
 
 ### Deployment
@@ -132,10 +140,7 @@ To deploy the Portfolio to a live environment, you can follow these steps:
 
 ## 🔭 Future Features <a id="future-features"></a>
 
-- Add new students or teachers.
-- Add new books.
-- Save records of who borrowed a given book and when.
-- And all of this will be built in a beautiful and well-organized way!
+- Number of days a student or teacher has rented a book
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
