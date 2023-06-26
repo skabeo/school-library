@@ -1,20 +1,19 @@
 require_relative 'person'
 
-# Student class demonstrating the inheritance principle
 class Student < Person
-  attr_accessor :classrooms
+  attr_reader :classroom
 
-  def initialize(age, name, parent_permission)
-    super(name, parent_permission: parent_permission)
-    @classrooms = classrooms
-  end
-
-  def play_hooky
-    '¯\(ツ)/¯'
+  def initialize(classroom, age, name, parent_permission: true)
+    super(age, name, parent_permission: parent_permission)
+    @classroom = classroom
   end
 
   def classroom=(classroom)
     @classroom = classroom
-    classroom.students.push(self) unless classroom.students.include?(self)
+    classroom.students << self unless classroom.students.include?(self)
+  end
+
+  def play_hooky
+    '¯\(ツ)/¯'
   end
 end
