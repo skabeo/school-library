@@ -1,14 +1,12 @@
 require_relative 'person'
-# Teacher class demonstrating the inheritance principle
-class Teacher < Person
-  attr_accessor :specialization
 
-  def initialize(specialization, age, name)
-    super(age, name)
+class Teacher < Person
+  def initialize(age, name, specialization, parent_permission: true)
+    super(age, name, parent_permission: parent_permission)
     @specialization = specialization
   end
 
-  def can_use_services?
+  def can_use_service?
     true
   end
 end
