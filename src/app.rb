@@ -22,8 +22,7 @@ class App
   end
 
   def create_person
-    print 'Do you want to create a new student (1) or teacher (2)? [Input the number]: '
-    selected_person_type = Integer(gets.chomp)
+    selected_person_type = InputHandler.request_person_type
     case selected_person_type
     when 1
       create_student
@@ -33,37 +32,15 @@ class App
   end
 
   def create_book
-    print 'Title: '
-    title = gets.chomp
-    print 'Author: '
-    author = gets.chomp
+    title, author = InputHandler.request_book_details
     puts 'New Book added'
     book = Book.new(title, author)
     @books << book
   end
 
   def create_rental
-    if @books.empty?
-      puts 'No books created please create a book'
-      return
-    elsif @people.empty?
-      puts 'No people created please create a person'
-      return
-    end
-
-    puts 'Select a book from the following list of number'
-    @books.each_with_index { |book, index| puts "#{index}) Title: #{book.title}, Author: #{book.author}" }
-    selected_book = Integer(gets.chomp)
-
-    puts 'Select a person from the following list of number (not ID)'
-    @people.each_with_index do |person, index|
-      puts "#{index}) Name: #{person.name} Age: #{person.age} Id: #{person.id}"
-    end
-
-    selected_person = Integer(gets.chomp)
-
-    print 'Date MM/DD/YYYY : '
-    selected_date = gets.chomp.to_s
+    selected_book, selected_person, selected_date = InputHandler.request_rental_details(@books, @people)
+    return if selected_book.nil? || selected_person.nil? || selected_date.nil?
 
     rented = Rental.new(selected_date, @books[selected_book], @people[selected_person])
     @rentals << rented
@@ -72,8 +49,7 @@ class App
   end
 
   def list_rental
-    print 'Enter the Person ID: '
-    person_id = Integer(gets.chomp)
+    person_id = InputHandler.request_person_id
     @rentals.each do |rent|
       puts "Date: #{rent.date}, Book: #{rent.book.title} Author: #{rent.book.author}" if rent.person.id == person_id
     end
@@ -94,5 +70,50 @@ class App
     puts '5 - Create a rental.'
     puts '6 - List all rentals for a given person id.'
     puts '7 - Exit'
+  end
+end
+
+class InputHandler
+  def self.request_person_type
+    print 'If you want to create a new student press (1) or press (2) for teacher? [Input the number]: '
+    Integer(gets.chomp)
+  end
+
+  def self.request_book_details
+    print 'Title: '
+    title = gets.chomp
+    print 'Author: '
+    author = gets.chomp
+    [title, author]
+  end
+
+  def self.request_rental_details(books, people)
+    if books.empty?
+      puts 'No books created. Please create a book.'
+      return
+    elsif people.empty?
+      puts 'No people created. Please create a person.'
+      return
+    end
+
+    puts 'Select a book from the following list of numbers:'
+    books.each_with_index { |book, index| puts "#{index}) Title: #{book.title}, Author: #{book.author}" }
+    selected_book = Integer(gets.chomp)
+
+    puts 'Select a person from the following list of numbers (not ID):'
+    people.each_with_index do |person, index|
+      puts "#{index}) Name: #{person.name} Age: #{person.age} ID: #{person.id}"
+    end
+    selected_person = Integer(gets.chomp)
+
+    print 'Date MM/DD/YYYY: '
+    selected_date = gets.chomp.to_s
+
+    [selected_book, selected_person, selected_date]
+  end
+
+  def self.request_person_id
+    print 'Enter the Person ID: '
+    Integer(gets.chomp)
   end
 end
