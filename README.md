@@ -135,6 +135,10 @@ To deploy the Portfolio to a live environment, you can follow these steps:
 - Twitter: [@black_okyere](https://twitter.com/black_okyere)
 - LinkedIn: [LinkedIn](https://linkedin.com/in/spencer-okyere)
 
+👤 **Atif Zada**
+- GitHub: [@Atif-Zada](https://github.com/AtifZada)
+- LinkedIn: [@Atif-Zada](https://linkedin.com/in/AtifZada)
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
