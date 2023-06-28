@@ -12,7 +12,6 @@
 - [🛠 Built With ](#built-with)
   - [Tech Stack ](#tech-stack)
   - [Key Features ](#key-features)
-- [🚀 Live Demo ](#live-demo)
 - [💻 Getting Started ](#getting-started)
   - [Prerequisites](#prerequisites)
   - [Setup](#setup)
@@ -62,12 +61,6 @@
 - Add new books.
 - Save records of who borrowed a given book and when.
 - And all of this will be built in a beautiful and well-organized way!
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-## 🚀 Live Demo <a id="live-demo"></a>
-
-- Live version would be up soon.
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
