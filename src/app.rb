@@ -39,6 +39,11 @@ class App
                    Student.new(nil, person['age'], person['name'], parent_permission: person['parent_permission'])
                  end
     end
+    rentals.each do |rental|
+      rentee = @people.select { |person| person.name == rental['person_name'] }
+      rented_book = @books.select { |book| book.title == rental['book_title'] }
+      @rentals << Rental.new(rental['date'], rented_book[0], rentee[0])
+    end
   end
 
   def list_books
