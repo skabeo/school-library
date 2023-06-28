@@ -28,6 +28,7 @@ class App
     books = JSON.parse(fetch_data('books'))
     people = JSON.parse(fetch_data('people'))
     rentals = JSON.parse(fetch_data('rentals'))
+
     books.each do |book|
       @books << Book.new(book['title'], book['author'])
     end
@@ -39,6 +40,7 @@ class App
                    Student.new(nil, person['age'], person['name'], parent_permission: person['parent_permission'])
                  end
     end
+
     rentals.each do |rental|
       rentee = @people.select { |person| person.name == rental['person_name'] }
       rented_book = @books.select { |book| book.title == rental['book_title'] }
