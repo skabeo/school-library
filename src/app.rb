@@ -26,8 +26,18 @@ class App
 
   def load_data
     books = JSON.parse(fetch_data("books"))
+    people = JSON.parse(fetch_data("people"))
+
     books.each do |book|
       @books << Book.new(book['title'], book['author'])
+    end
+
+    people.each do |person|
+      @people << if person['type'] == 'Teacher'
+        Teacher.new(person['age'], person['name'], person['specialization'], parent_permission: true)
+      else
+        Student.new(nil, person['age'], person['name'], parent_permission: person['parent_permission'])
+      end
     end
   end
 
@@ -81,9 +91,22 @@ class App
     File.write("data/books.json", JSON.pretty_generate(updated_books))
   end
 
+  def save_people
+    updated_people = []
+    @people.each do |person|
+      if person.instance_of?(::Teacher)
+        updated_people << { 'type' => 'Teacher', 'id' => person.id, 'name' => person.name, 'age' => person.age, 'specialization' => person.specialization }
+      elsif person.instance_of?(::Student)
+        updated_people << { 'type' => 'Student', 'id' => person.id, 'name' => person.name, 'age' => person.age, 'parent_permission' => person.parent_permission }
+      end
+    end
+    File.write('data/people.json', JSON.pretty_generate(updated_people))
+  end
+
   def save_on_exit
     puts 'Thank you for using school library app'
     save_books
+    save_people
 
     exit
   end
