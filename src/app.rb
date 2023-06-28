@@ -3,6 +3,7 @@ require_relative 'teacher'
 require_relative 'book'
 require_relative 'rental'
 require_relative 'manage_people'
+require 'json'
 
 class App
   attr_accessor :books, :people, :rentals
@@ -11,6 +12,40 @@ class App
     @books = []
     @people = []
     @rentals = []
+  end
+
+  def fetch_data(file)
+    if File.exist?("data/#{file}.json")
+      File.read("data/#{file}.json")
+    else
+      empty_file = [].to_json
+      File.write("data/#{file}.json", empty_file)
+      empty_file
+    end
+  end
+
+  def load_data
+    books = JSON.parse(fetch_data('books'))
+    people = JSON.parse(fetch_data('people'))
+    rentals = JSON.parse(fetch_data('rentals'))
+
+    books.each do |book|
+      @books << Book.new(book['title'], book['author'])
+    end
+
+    people.each do |person|
+      @people << if person['type'] == 'Teacher'
+                   Teacher.new(person['age'], person['name'], person['specialization'], parent_permission: true)
+                 else
+                   Student.new(nil, person['age'], person['name'], parent_permission: person['parent_permission'])
+                 end
+    end
+
+    rentals.each do |rental|
+      rentee = @people.select { |person| person.name == rental['person_name'] }
+      rented_book = @books.select { |book| book.title == rental['book_title'] }
+      @rentals << Rental.new(rental['date'], rented_book[0], rentee[0])
+    end
   end
 
   def list_books
@@ -53,6 +88,45 @@ class App
     @rentals.each do |rent|
       puts "Date: #{rent.date}, Book: #{rent.book.title} Author: #{rent.book.author}" if rent.person.id == person_id
     end
+  end
+
+  def save_books
+    updated_books = []
+    @books.each do |book|
+      updated_books << { 'title' => book.title, 'author' => book.author }
+    end
+    File.write('data/books.json', JSON.pretty_generate(updated_books))
+  end
+
+  def save_people
+    updated_people = []
+    @people.each do |person|
+      if person.instance_of?(::Teacher)
+        updated_people << { 'type' => 'Teacher', 'id' => person.id, 'name' => person.name, 'age' => person.age,
+                            'specialization' => person.specialization }
+      elsif person.instance_of?(::Student)
+        updated_people << { 'type' => 'Student', 'id' => person.id, 'name' => person.name, 'age' => person.age,
+                            'parent_permission' => person.parent_permission }
+      end
+    end
+    File.write('data/people.json', JSON.pretty_generate(updated_people))
+  end
+
+  def save_rentals
+    updated_rentals = []
+    @rentals.each do |rental|
+      updated_rentals << { 'person_name' => rental.person.name, 'book_titles' => rental.book.title,
+                           'date' => rental.date }
+    end
+    File.write('data/rentals.json', JSON.pretty_generate(updated_rentals))
+  end
+
+  def save_on_exit
+    puts 'Thank you for using school library app'
+    save_books
+    save_people
+    save_rentals
+    exit
   end
 
   def invalid_option
