@@ -39,8 +39,8 @@
 
   <summary>Technology</summary>
 
-  - [Ruby](https://ruby.org/) - A high-level programming language used for back-end development.
-  - [irb](https://www.irb.com/) - A command line interface for ruby
+  - [Ruby](https://www.ruby-lang.org/en/) - A high-level programming language used for back-end development.
+  - [irb](https://docs.ruby-lang.org/en/master/IRB.html) - A command line interface for ruby
 
 </details>
 
