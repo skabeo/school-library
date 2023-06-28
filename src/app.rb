@@ -34,10 +34,10 @@ class App
 
     people.each do |person|
       @people << if person['type'] == 'Teacher'
-        Teacher.new(person['age'], person['name'], person['specialization'], parent_permission: true)
-      else
-        Student.new(nil, person['age'], person['name'], parent_permission: person['parent_permission'])
-      end
+                   Teacher.new(person['age'], person['name'], person['specialization'], parent_permission: true)
+                 else
+                   Student.new(nil, person['age'], person['name'], parent_permission: person['parent_permission'])
+                 end
     end
   end
 
