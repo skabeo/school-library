@@ -120,7 +120,7 @@ class App
     puts 'Thank you for using school library app'
     save_books
     save_people
-
+    save_rentals
     exit
   end
 
