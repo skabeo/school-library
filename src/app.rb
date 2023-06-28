@@ -27,7 +27,7 @@ class App
   def load_data
     books = JSON.parse(fetch_data('books'))
     people = JSON.parse(fetch_data('people'))
-
+    rentals = JSON.parse(fetch_data('rentals'))
     books.each do |book|
       @books << Book.new(book['title'], book['author'])
     end
