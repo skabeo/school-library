@@ -3,6 +3,7 @@ require_relative 'teacher'
 require_relative 'book'
 require_relative 'rental'
 require_relative 'manage_people'
+require 'json'
 
 class App
   attr_accessor :books, :people, :rentals
@@ -11,6 +12,23 @@ class App
     @books = []
     @people = []
     @rentals = []
+  end
+
+  def fetch_data(file)
+    if File.exist?("data/#{file}.json")
+      File.read("data/#{file}.json")
+    else
+      empty_file = [].to_json
+      File.write("data/#{file}.json", empty_file)
+      empty_file
+    end
+  end
+
+  def load_data
+    books = JSON.parse(fetch_data("books"))
+    books.each do |book|
+      @books << Book.new(book['title'], book['author'])
+    end
   end
 
   def list_books
@@ -53,6 +71,21 @@ class App
     @rentals.each do |rent|
       puts "Date: #{rent.date}, Book: #{rent.book.title} Author: #{rent.book.author}" if rent.person.id == person_id
     end
+  end
+
+  def save_books
+    updated_books = []
+    @books.each do |book|
+      updated_books << { 'title' => book.title, 'author' => book.author }
+    end
+    File.write("data/books.json", JSON.pretty_generate(updated_books))
+  end
+
+  def save_on_exit
+    puts 'Thank you for using school library app'
+    save_books
+
+    exit
   end
 
   def invalid_option
